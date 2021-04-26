@@ -4,14 +4,14 @@ class UsersController < ApplicationController
       erb :signup
     end
 
-    post '/register' do
-      @user = User.new((name: params["name"], email: params["email"], phone: params["phone"], password: params["password"])
-      @user.save
-      session[:user_id] = @user.id
+    #post '/register' do
+      #@user = User.new((name: params["name"], email: params["email"], phone: params["phone"], password: params["password"])
+      #@user.save
+      #session[:user_id] = @user.id
 
-      redirect '/welcome'
+      #redirect '/welcome'
 
-    end
+    #end
 
     get '/login' do
       erb :login
