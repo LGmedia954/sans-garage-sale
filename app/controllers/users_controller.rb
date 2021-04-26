@@ -1,10 +1,14 @@
 class UsersController < ApplicationController
 
     get '/signup' do
-      erb :signup
+      if !logged_in?
+        erb :'users/signup'
+      else
+        redirect to '/listings'
+      end
     end
 
-    #post '/register' do
+    #post '/signup' do
       #@user = User.new((name: params["name"], email: params["email"], phone: params["phone"], password: params["password"])
       #@user.save
       #session[:user_id] = @user.id
@@ -14,18 +18,25 @@ class UsersController < ApplicationController
     #end
 
     get '/login' do
-      erb :login
+      if !logged_in?
+        erb :'users/login'
+      else
+        redirect to '/listings'
+      end
     end
 
+    #post '/login' do
 
 
 
     get '/logout' do
+      if logged_in?
         session.clear
-        redirect '/'
+        redirect to '/login'
+      else
+        redirect to '/'
       end
-  
-  
+    end
   
   
   end
