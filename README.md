@@ -8,4 +8,4 @@ To use this app, just clone, run rake db:migrate and then run shotgun.
 
 MVC is a software design pattern commonly used for developing user interfaces that divides the program logic into three interconnected elements -- and a separation of concerns.
 
-This project has multiple models, using "has_many" and "belongs_to" relationships. Users can sign up, sign in, and sign out. Unique log in attempts as well as user inputs are checked for validity. Once logged in, a user can create, read, update and delete (CRUD) their posts. A user cannot edit or delete anyone else's information.
+This project has multiple models, using "has_many" and "belongs_to" relationships. Users can sign up, sign in, and sign out. Unique log in attempts as well as user inputs are checked for validity. Once logged in, a user can create, read, update and delete (CRUD) their posts. A user cannot edit or delete anyone else's information.c

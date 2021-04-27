@@ -1,4 +1,4 @@
-<h2>Add Listing</h2>
+<h2>Edit Listing</h2>
 
   <div class="sidebar">
     <a href="/listings">All Listings</a>
@@ -32,6 +32,7 @@
 
 <br>
   <form method="POST" action="/items">
+    <input id="hidden" type="hidden" name="_method" value="PATCH">
 	<input type="text" name="item[name]" id="Name" placeholder="Item">
     <br><br>
     <input type="text" name="item[quantity]" placeholder="Quantity">
@@ -46,7 +47,7 @@
       <input id="<%= category.name %>" type="checkbox" name="categories[]" value="<%= category.id %>">
     <% end %>
     <br><br>
-	<input type="submit" value="Create">
+	<input type="submit" value="Save">
   </form>
 <br>
 

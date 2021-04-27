@@ -8,11 +8,33 @@
     <a href="">My Listings</a>
     <br><br>
     <a href="/logout">Log Out</a>
-  </div>
+    <br><br>
+    
+    <h6><dl>
+        <dt>COMMUNITY GUIDELINES:</dt>
+          <dd>- No personal clothing</dd>
+          <dd>- No jewelry of any kind</dd>
+          <dd>- PayPal, Venmo, or CashApp Only</dd>
+          <dd>- Transactions are at your own risk</dd>
+          <dd>- Make transfer arrangements safely</dd>
+          <dd>- All sales are FINAL</dd>
+          
+          <dd>- Send inquiries or 
+          <a href="mailto:LeslieGonzalez@me.com?Subject=SansGarage" target="_top">report abuse here.</a></dd>
+       </dl></h6>
+    </div>
+
 
   <h3>Welcome, <%= current_user.name %></h3>
   <br><br>
   <br><br>
+  <% @venue.orders.each do |order| %>
+    <h3>Order <%= order.id %></h3>
+    <h4><%= order.customer.email %></h4>
+    <% order.items.each do |item| %>
+    <h5><%= item.quantity %> x <%= item.item %></h5>
+    <% end %>
+ <% end %>
 
 
 

@@ -2,10 +2,11 @@ class ItemsController < ApplicationController
 
     get '/listings' do
       #Some magical code here...
+      @item = Item.includes({:items => [:name, :quantity, :condition, :price]}, {:users => [:name, :phone, :email]}).find_by_handle(params[:item])
       erb :'/listings'
     end
 
-    get '/item/new' do
+    get '/add_listing' do
       @categories = Category.all
       erb :'/add_listing'
     end
@@ -29,6 +30,10 @@ class ItemsController < ApplicationController
 
     get '/show_listing' do
       erb :'show_listing'
+    end
+
+    get '/edit_listing' do
+      erb :'edit_listing'
     end
 
     get '/my_listings' do
