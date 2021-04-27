@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
 
     get '/listings' do
-      #Some magical code here...
+      #Trying this code here...
+      #@venue = Venue.includes({:orders => [:customer, :items]}).find_by_handle(params[:venue])
       @item = Item.includes({:items => [:name, :quantity, :condition, :price]}, {:users => [:name, :phone, :email]}).find_by_handle(params[:item])
       erb :'/listings'
     end

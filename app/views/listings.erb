@@ -28,14 +28,14 @@
   <h3>Welcome, <%= current_user.name %></h3>
   <br><br>
   <br><br>
-  <% @venue.orders.each do |order| %>
-    <h3>Order <%= order.id %></h3>
-    <h4><%= order.customer.email %></h4>
-    <% order.items.each do |item| %>
-    <h5><%= item.quantity %> x <%= item.item %></h5>
-    <% end %>
- <% end %>
-
-
+  <% @item.items.each do |i| %>
+  <h3><%= item.id %>. <%= item.name %> (<%= item.quantity %>)</h3>
+  <h4><%= item.condition %></h4>
+  <h4>$<%= item.price %> USD</h4>
+  <br><br>
+  <h4><%= item.user.name %></h4>
+  <h4><%= item.user.phone %></h4>
+  <h4><%= item.user.email %></h4>
+<% end %>
 
 
