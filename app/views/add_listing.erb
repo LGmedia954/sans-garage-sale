@@ -16,14 +16,20 @@
 
 <br>
   <form method="POST" action="/items">
-	<input type="text" name="name" placeholder="Item">
+	<input type="text" name="item[name]" id="Name" placeholder="Item">
     <br><br>
-    <input type="text" name="email" placeholder="Quantity">
+    <input type="text" name="item[quantity]" placeholder="Quantity">
     <br><br>
-    <input type="text" name="phone" placeholder="Condition">
+    <input type="text" name="item[condition]" placeholder="Condition">
     <br><br>
-	<input type="password" name="password" placeholder="Price">
-    <br><br><br>
+	<input type="password" name="item[price]" placeholder="Price">
+    <br><br>
+    <h5>Please Select a Category:</h5>
+    <br><br>
+    <% Category.all.each do |c| %>
+      <input id="<%= category.name %>" type="checkbox" name="categories[]" value="<%= category.id %>">
+    <% end %>
+    <br><br>
 	<input type="submit" value="Create">
   </form>
 <br>
