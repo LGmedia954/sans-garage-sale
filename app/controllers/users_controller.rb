@@ -36,7 +36,7 @@ class UsersController < ApplicationController
         session[:user_id] = user.id
         redirect to '/listings'
       else
-        flash[:login_error] = "Password . Please try again."
+        flash[:login_error] = "Password incorrect. Please try again."
         redirect to '/signup'
       end
     end
