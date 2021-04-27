@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
 
     get '/categories/:name' do
       @category = Category.find_by_name(params[:name])
-      erb :'/show_category'
+      erb :'/items_by_category'
     end
     
 end

@@ -1,0 +1,31 @@
+<h2>Add Listing</h2>
+
+  <div class="sidebar">
+    <a href="/listings">All Listings</a>
+    <br><br>
+    <a href="/categories">View Categories</a>
+    <br><br>
+    <a href="">My Listings</a>
+    <br><br>
+    <a href="/logout">Log Out</a>
+  </div>
+
+  <% if flash.has?(:input_error) %>
+    <%= flash[:input_error] %>
+  <% end %>
+
+<br>
+  <form method="POST" action="/items">
+	<input type="text" name="name" placeholder="Item">
+    <br><br>
+    <input type="text" name="email" placeholder="Quantity">
+    <br><br>
+    <input type="text" name="phone" placeholder="Condition">
+    <br><br>
+	<input type="password" name="password" placeholder="Price">
+    <br><br><br>
+	<input type="submit" value="Create">
+  </form>
+<br>
+
+

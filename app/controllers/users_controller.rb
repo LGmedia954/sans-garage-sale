@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
     post '/signup' do
       if params[:name] == "" || params[:email] == "" || params[:phone] == "" || params[:password] == ""
-        flash[:onboard_error] = "Please enter a value for every field."
+        flash[:onboard_error] = "All fields are required."
         redirect to '/signup'
       else
         @user = User.create(params)
