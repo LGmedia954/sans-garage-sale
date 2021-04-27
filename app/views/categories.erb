@@ -1,0 +1,20 @@
+<h1>All Categories</h1>
+
+<div>
+  <ul>
+    <% @categories.each do |c| %>
+      <li><a href="/categories/<%= category.name %>"><%= category.name %></a></li>
+    <% end %>
+  </ul>
+</div>
+
+  <br><br>
+  <br><br>
+  <h3><a href="/item/new">Add Listing</a></h3>
+  <br><br>
+  <br><br>
+  <h3><a href="/tweets">View All Listings</a></h3>
+  <br><br>
+  <br><br>
+  <h3><a href="/logout">Log Out</a></h3>
+  <br>

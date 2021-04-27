@@ -1,6 +1,8 @@
-<h1>View Your Listings <%= @user.name %></h1>
+<h1>View Items by Category <%= @user.name %></h1>
 
-<% @user.items.each do |item| %>
+#Code below is incorrect
+
+<% @item_category.each do |c| %>
   <div>
     <%= item.name %>
     <%= item.quantity %>

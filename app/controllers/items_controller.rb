@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
     get '/listings' do
-      "Hello World"
+      erb :'/listings'
     end
     
 end
