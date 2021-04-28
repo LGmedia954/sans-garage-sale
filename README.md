@@ -10,4 +10,4 @@ MVC is a software design pattern commonly used for developing user interfaces th
 
 This project has multiple models, using "has_many" and "belongs_to" relationships. Users can sign up, sign in, and sign out. Unique log in attempts as well as user inputs are checked for validity. Once logged in, a user can create, read, update and delete (CRUD) their posts. A user cannot edit or delete anyone else's information.
 
-Copyright (c) 2021 <a href="https://github.com/LGmedia954/sans-garage-sale/blob/main/LICENSE">MIT License.</a>
+Copyright (c) 2021 Leslie G., <a href="https://github.com/LGmedia954/sans-garage-sale/blob/main/LICENSE">MIT License.</a>
