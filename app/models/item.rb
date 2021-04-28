@@ -1,3 +1,5 @@
+require './config/environment'
+
 class Item < ActiveRecord::Base
 
     belongs_to :user

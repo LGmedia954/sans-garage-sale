@@ -1,3 +1,5 @@
+require './config/environment'
+
 class ItemCategory < ActiveRecord::Base
 
     belongs_to :item
