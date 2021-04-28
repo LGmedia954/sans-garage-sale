@@ -2,7 +2,7 @@ require './config/environment'
 require 'rack-flash'
 
 class CategoriesController < ApplicationController
-
+  
     get '/categories' do
       @categories = Category.all
       erb :'/categories'

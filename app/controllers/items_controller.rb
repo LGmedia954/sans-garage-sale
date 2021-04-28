@@ -43,6 +43,8 @@ class ItemsController < ApplicationController
     get '/my_listings' do
       erb :'my_listings'
     end
+
+    #need delete_listing
     
 end
 

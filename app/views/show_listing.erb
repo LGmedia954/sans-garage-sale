@@ -20,6 +20,12 @@
   <h3><a href="/item/new">Edit Listing</a></h3>
   <br><br>
   <br><br>
-  <h3><a href="/item/new">Add Another Listing</a></h3>
+  <form method="POST" action="/items/<%= @item.id %>/delete">
+  <input type="hidden" id="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete Listing"/>
+  </form>
+  <br><br>
+  <br><br>
+  <h3><a href="/item/new">Add a New Listing</a></h3>
   <br><br>
 
