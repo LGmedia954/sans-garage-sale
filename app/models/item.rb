@@ -6,9 +6,6 @@ class Item < ActiveRecord::Base
     has_many :item_categories
     has_many :categories, through: :item_categories
 
-    validates :name, :presence => true
-    validates :quantity, :presence => true
-    validates :condition, :presence => true
-    validates :price, :presence => true
+    validates_presence_of :name, :quantity, :condition, :price
   
 end
