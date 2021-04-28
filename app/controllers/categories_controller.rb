@@ -1,3 +1,6 @@
+require './config/environment'
+require 'rack-flash'
+
 class CategoriesController < ApplicationController
 
     get '/categories' do
