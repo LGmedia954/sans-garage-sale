@@ -32,13 +32,13 @@
 <br>
   <form method="POST" action="/items">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
-	<input type="text" name="item[name]" id="Name" placeholder="Item">
+	  <label for="name">Name: <input type="text" name="item[name]" id="Name" placeholder="Your name"></label>
     <br><br>
-    <input type="text" name="item[quantity]" placeholder="Quantity">
+    <label for="quantity">Quantity: <input type="text" name="item[quantity]" id="Quantity" placeholder="Enter a number"></label>
     <br><br>
-    <input type="text" name="item[condition]" placeholder="Condition">
+    <label for="condition">Condition: <input type="text" name="item[condition]" placeholder="New/Good/Fair/Repair"></label>
     <br><br>
-	<input type="password" name="item[price]" placeholder="Price">
+	  <label for="price">Price: <input type="password" name="item[price]" placeholder="Enter 0 for free"></label>
     <br><br>
     <h5>Please Select a Category:</h5>
     <br><br>
@@ -46,7 +46,7 @@
       <input id="<%= category.name %>" type="checkbox" name="categories[]" value="<%= category.id %>">
     <% end %>
     <br><br>
-	<input type="submit" value="Save">
+	<input type="submit" value="Update">
   </form>
 <br>
 

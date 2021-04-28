@@ -1,5 +1,4 @@
 
-
 category_list = {
     "Appliances" => {
     },
@@ -8,27 +7,27 @@ category_list = {
     "Collectibles" => {
     },
     "Computers" => {
-    }
+    },
     "Electronics" => {
-    }
+    },
     "Furniture" => {
-    }
+    },
     "Games" => {
-    }
+    },
     "Garden" => {
-    }
+    },
     "Household" => {
-    }
+    },
     "Kids" => {
     },
     "Media" => {
-    }
+    },
     "Music" => {
-    }
+    },
     "Sports" => {
-    }
+    },
     "Tools" => {
-    }
+    },
     "Vehicles" => {
     }
   }
