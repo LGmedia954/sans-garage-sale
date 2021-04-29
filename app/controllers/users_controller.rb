@@ -17,7 +17,7 @@ class UsersController < ApplicationController
         redirect to '/signup'
       else
         @user = User.create(params)
-        session[:user_id] = @user.id
+        session[:email] = @user.id
         redirect '/listings'
       end
     end
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     post '/login' do
       user = User.find_by(:name => params[:name])
       if user && user.authenticate(params[:password])
-        session[:user_id] = user.id
+        session[:email] = user.id
         redirect to '/listings'
       else
         flash[:login_error] = "Password incorrect. Please try again."

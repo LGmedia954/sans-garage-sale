@@ -5,6 +5,7 @@ require './config/environment'
 #end
 
 use Rack::MethodOverride
+use URI::MailTo::EMAIL_REGEXP
 
 use UsersController
 use ItemsController

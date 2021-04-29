@@ -1,5 +1,16 @@
 <h2><%= @category.name %></h2>
 
+  <div class="sidebar">
+    <a href="/categories">All Categories</a>
+    <br><br>
+    <a href="/listings">All Listings</a>
+    <br><br>
+    <a href="">My Listings</a>
+    <br><br>
+    <a href="/item/new">Add Listing</a>
+    <br><br>
+  </div>
+
 <% @category.items.each do |item| %>
   <div>
     <%= item.name %>
@@ -8,12 +19,3 @@
     <%= item.price %>
   </div>
 <% end %>
-
-
-  <br><br>
-  <br><br>
-  <h4><a href="/item/new">Add a New Listing</a></h4>
-  <br><br>
-  <h4><a href="/listings">View All Listings</a></h4>
-  <br><br>
-  <h4><a href="/logout">Log Out</a></h4>

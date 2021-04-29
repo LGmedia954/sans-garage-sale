@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       end
     end
       
-
+    #CREATE
     post 'items' do
       if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
         flash[:input_error] = "All fields are required. Enter 0 for free items."
@@ -61,8 +61,16 @@ class ItemsController < ApplicationController
     end
 
     get '/my_listings' do
+      if logged_in?
+        #@items = User.Items.all
+        @categories = Category.all
       erb :'my_listings'
+    else
+      redirect to '/'
     end
+  end
+
+
 
     #need delete_listing
     

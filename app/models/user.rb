@@ -1,4 +1,5 @@
 require './config/environment'
+require 'uri'
 
 class User < ActiveRecord::Base
 
@@ -8,5 +9,8 @@ class User < ActiveRecord::Base
 
     #validates_presence_of :name, :email, :phone
     #validates_uniqueness_of :email
-    
+
+
+    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
 end
