@@ -1,15 +1,5 @@
 <h2>All Categories</h2>
 
-<div>
-  
-  <% @categories.each do |category| %>
-    <ul>
-      <li><a href="/categories/<%= category.name %>"><%= category.name %></a></li>
-    </ul>
-  <% end %>
-  
-</div>
-
   <div class="sidebar">
     <a href="/listings">All Listings</a>
     <br><br>
@@ -20,5 +10,13 @@
     <a href="/logout">Log Out</a>
   </div>
 
-  <br><br>
-  <br><br>
+<div>
+  
+  <% @categories.each do |category| %>
+    <div>
+      &bull; <a href="/categories/<%= category.name %>"><%= category.name %></a>
+    </div>
+  <% end %>
+  
+</div>
+
