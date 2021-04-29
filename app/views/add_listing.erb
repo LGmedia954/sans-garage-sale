@@ -39,13 +39,12 @@
     <br><br>
 	  <label for="price">Price: <input type="password" name="item[price]" placeholder="Enter 0 for free"></label>
     <br><br>
-    
+
     <h5><label>Please Select a Category:</label></h5>
     <br><br>
-    <% Category.all.each do |category| %>
+    <% @categories.each do |category| %>
       <input type="checkbox" id="<%= category.name %>" name="item[categories][]" value="<%= category.id %>" <%='checked' if @item.categories.include?(category) %>>
     <%= category.name %>
-    </input>
     <br>
   <% end %>
     <br><br>

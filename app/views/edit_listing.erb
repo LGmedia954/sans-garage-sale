@@ -46,7 +46,7 @@
     <% Category.all.each do |category| %>
       <input type="checkbox" id="<%= category.name %>" name="item[categories][]" value="<%= category.id %>" <%='checked' if @item.categories.include?(category) %>>
     <%= category.name %>
-    </input>
+    
     <br>
   <% end %>
 

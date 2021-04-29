@@ -14,7 +14,7 @@
   
   <% @categories.each do |category| %>
     <div>
-      &bull; <a href="/categories/<%= category.name %>"><%= category.name %></a>
+      <%= category.id %>. <a href="/categories/<%= category.name %>"><%= category.name %></a>
     </div>
   <% end %>
   

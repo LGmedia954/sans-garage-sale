@@ -14,7 +14,6 @@ class ItemsController < ApplicationController
   
     get '/item/new' do
       if logged_in?
-        #@catergories = Category.all
         erb :'/add_listing'
       else
         redirect to '/login'
