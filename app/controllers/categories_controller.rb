@@ -8,13 +8,17 @@ class CategoriesController < ApplicationController
         @categories = Category.all
         erb :'/categories'
       else
-        redirect to '/login'
+        redirect to '/'
       end
     end
 
     get '/categories/:name' do
-      @category = Category.find_by_name(params[:name])
-      erb :'/items_by_category'
+      if logged_in?
+        @category = Category.find_by_name(params[:name])
+        erb :'/items_by_category'
+      else
+        redirect to '/'
+      end
     end
-    
+
 end

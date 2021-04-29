@@ -4,14 +4,23 @@ require 'rack-flash'
 class ItemsController < ApplicationController
 
   get '/listings' do
-    #info_merge
-    erb :'/listings'
+    if logged_in?
+      @items = Item.all
+      erb :'/listings'
+    else
+      redirect to '/login'
+    end
   end
   
     get '/item/new' do
-      @catergories = Category.all
-      erb :'/item/new'
+      if logged_in?
+        #@catergories = Category.all
+        erb :'/add_listing'
+      else
+        redirect to '/login'
+      end
     end
+      
 
     post 'items' do
       if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""

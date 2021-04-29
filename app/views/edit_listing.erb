@@ -40,11 +40,16 @@
     <br><br>
 	  <label for="price">Price: <input type="password" name="item[price]" placeholder="Enter 0 for free"></label>
     <br><br>
-    <h5>Please Select a Category:</h5>
+
+    <h5><label>Categories:</label></h5>
     <br><br>
-    <% Category.all.each do |c| %>
-      <input id="<%= category.name %>" type="checkbox" name="categories[]" value="<%= category.id %>">
-    <% end %>
+    <% Category.all.each do |category| %>
+      <input type="checkbox" id="<%= category.name %>" name="item[categories][]" value="<%= category.id %>" <%='checked' if @item.categories.include?(category) %>>
+    <%= category.name %>
+    </input>
+    <br>
+  <% end %>
+
     <br><br>
 	<input type="submit" value="Update">
   </form>
