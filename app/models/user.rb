@@ -7,9 +7,8 @@ class User < ActiveRecord::Base
     has_many :categories, through: :items
     has_secure_password
 
-    #validates_presence_of :name, :email, :phone
-    #validates_uniqueness_of :email
-
+    validates_presence_of :name, :email, :phone, :password
+    validates_uniqueness_of :email
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 

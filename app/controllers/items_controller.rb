@@ -56,7 +56,7 @@ class ItemsController < ApplicationController
       erb :'/show_listing'
     end
 
-    get '/item/edit' do
+    get '/item/:id/edit' do
       erb :'edit_listing'
     end
 
@@ -65,6 +65,15 @@ class ItemsController < ApplicationController
         #@items = User.Items.all
         @categories = Category.all
       erb :'my_listings'
+    else
+      redirect to '/'
+    end
+  end
+
+  get '/items/:id' do
+    if logged_in?
+      @category = Category.find_by_name(params[:name])
+      erb :'/my_listings'
     else
       redirect to '/'
     end

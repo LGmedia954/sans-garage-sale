@@ -51,8 +51,14 @@
   <% end %>
 
     <br><br>
-	<input type="submit" value="Update">
+	  <input type="submit" value="Update">
   </form>
-<br>
+  <br><br>
+  <br><br>
+  <form method="POST" action="/items/<%= @item.id %>/delete">
+    <input type="hidden" id="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete Listing"/>
+  </form>
+  <br><br>
 
 
