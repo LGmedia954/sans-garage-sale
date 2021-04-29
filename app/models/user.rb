@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
+    def is_valid_email?(email)
+      email =~ VALID_EMAIL_REGEX
+    end
+
 end
