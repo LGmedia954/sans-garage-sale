@@ -3,6 +3,11 @@ require 'rack-flash'
 
 class ItemsController < ApplicationController
 
+  get '/listings' do
+    #info_merge
+    erb :'/listings'
+  end
+  
     get '/item/new' do
       @catergories = Category.all
       erb :'/item/new'
@@ -26,11 +31,15 @@ class ItemsController < ApplicationController
 
     end
 
-    get '/listings' do
-      #Trying this code here...
+    
+
+    def info_merge
+      #I want a nested hash to pull params details for each Item Listing and also pull User params contact info with it.
+      #Trying to simulate this sample below... 
       #@venue = Venue.includes({:orders => [:customer, :items]}).find_by_handle(params[:venue])
-      @item = Item.includes({:items => [:name, :quantity, :condition, :price]}, {:users => [:name, :email, :phone]}).find_by_id(params[:item])
-      erb :'/listings'
+
+      #My code below... still working with it.
+      #@item = Item.includes({:items => [:name, :quantity, :condition, :price]}, {:users => [:name, :email, :phone]}).find_by_id(params[:item])
     end
 
     get '/item/:name' do

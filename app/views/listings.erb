@@ -27,11 +27,6 @@
     <% if logged_in? %>
 
       <h3>Welcome, <%= current_user.name %></h3>
-
-      <a href="/item/new"> Post a New Listing </a>
-      <br><br>
-      <br><br>
-      <a href="/logout"> Log Out </a>
     
     <% else %>
   
@@ -44,14 +39,7 @@
     <br><br>
     <br><br>
 
-  <% @item.items.each do |i| %>
-  <h3><%= item.name %> (<%= item.quantity %>)</h3>
-  <h4><%= item.condition %></h4>
-  <h4>$<%= item.price %> USD</h4>
-  <br><br>
-  <h4><%= item.user.name %></h4>
-  <h4><%= item.user.phone %></h4>
-  <h4><%= item.user.email %></h4>
-<% end %>
+
+
 
 

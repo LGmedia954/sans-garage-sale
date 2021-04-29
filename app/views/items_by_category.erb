@@ -1,6 +1,4 @@
-<h2>View Items by Category</h2>
-
-<h3><%= @category.name %></h3>
+<h2><%= @category.name %></h2>
 
 <% @category.items.each do |item| %>
   <div>
@@ -10,13 +8,12 @@
     <%= item.price %>
   </div>
 <% end %>
+
+
   <br><br>
   <br><br>
-  <h3><a href="/item/new">Add Another Listing</a></h3>
+  <h4><a href="/item/new">Add a New Listing</a></h4>
   <br><br>
+  <h4><a href="/listings">View All Listings</a></h4>
   <br><br>
-  <h3><a href="/tweets">View All Listings</a></h3>
-  <br><br>
-  <br><br>
-  <h3><a href="/logout">Log Out</a></h3>
-  <br>
+  <h4><a href="/logout">Log Out</a></h4>

@@ -4,8 +4,12 @@ require 'rack-flash'
 class CategoriesController < ApplicationController
   
     get '/categories' do
-      @categories = Category.all
-      erb :'/categories'
+      if logged_in?
+        @categories = Category.all
+        erb :'/categories'
+      else
+        redirect to '/login'
+      end
     end
 
     get '/categories/:name' do
