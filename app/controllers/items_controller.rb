@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   
     get '/item/new' do
       if logged_in?
+        @categories = Category.all
         erb :'/add_listing'
       else
         redirect to '/login'
@@ -21,15 +22,16 @@ class ItemsController < ApplicationController
     end
       
     #CREATE
-    post 'items' do
+    #Will need to add security here
+    post '/items' do
       if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
         flash[:input_error] = "All fields are required. Enter 0 for free items."
         redirect to '/item/new'
       else
         @item = Item.create(params)
 
-        category_file = params[:item][:categories]
-        category_file.each do |c|
+        category_list = params[:item][:categories]
+        category_list.each do |category|
           @item.categories << Category.find(category)
         end
 
@@ -39,26 +41,62 @@ class ItemsController < ApplicationController
 
     end
 
-    
 
-    def info_merge
+    def all_info
       #I want a nested hash to pull params details for each Item Listing and also pull User params contact info with it.
-      #Trying to simulate this sample below... 
+      #Trying to follow this sample below:
       #@venue = Venue.includes({:orders => [:customer, :items]}).find_by_handle(params[:venue])
 
       #My code below... still working with it.
       #@item = Item.includes({:items => [:name, :quantity, :condition, :price]}, {:users => [:name, :email, :phone]}).find_by_id(params[:item])
     end
 
-    get '/item/:name' do
+    #READ
+    get '/item/:id' do
       name = params[:name]
       @item = Item.find_by_name(name)
       erb :'/show_listing'
     end
 
     get '/item/:id/edit' do
+      name = params[:name]
+      @item = Item.find_by_name(name)
       erb :'edit_listing'
     end
+
+    #EDIT
+    #Will need to add security here
+    patch '/item/:id' do
+      @item = Item.find_by_name(params[:name])
+      item.name = params[:item][:name]
+
+      if item.categories
+        item.categories.clear
+      end
+
+      categories = params[:item][:categories]
+      
+      categories.each do |category|
+        item.categories << Category.find(category)
+      end
+
+        @item.save
+        redirect '/show_listing/#{@item.id}'
+
+    end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     get '/my_listings' do
       if logged_in?
