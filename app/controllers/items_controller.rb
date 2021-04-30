@@ -21,24 +21,29 @@ class ItemsController < ApplicationController
       end
     end
       
-    #CREATE
-    #Will need to add security here
-    post '/items' do
-      if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
-        flash[:input_error] = "All fields are required. Enter 0 for free items."
-        redirect to '/item/new'
-      else
-        @item = Item.create(params)
 
-        category_list = params[:item][:categories]
-        category_list.each do |category|
+    #CREATE
+    post '/items' do
+      if logged_in?
+        if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
+          flash[:input_error] = "All fields are required. Enter 0 for free items."
+          redirect to '/item/new'
+        else
+          @item = current_user.items.build(params)
+
+          category_list = params[:item][:categories]
+          category_list.each do |category|
           @item.categories << Category.find(category)
         end
-
-        @item.save
-        redirect '/show_listing/#{@item.last}'
+          if @item.save
+            redirect '/show_listing/#{@item.id}'
+          else
+            redirect to "/item/new"
+          end
+        end
+      else
+        redirect to '/login'
       end
-
     end
 
 
@@ -53,32 +58,45 @@ class ItemsController < ApplicationController
 
     #READ
     get '/item/:id' do
-      name = params[:name]
-      @item = Item.find_by_name(name)
-      erb :'/show_listing'
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+        erb :'/show_listing'
+      else
+        redirect to '/login'
+      end
     end
 
     get '/item/:id/edit' do
-      name = params[:name]
-      @item = Item.find_by_name(name)
-      erb :'edit_listing'
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+        if @item && @item.user == current_user
+          erb :'/edit_listing'
+        else
+          redirect to '/listings'
+        end
+      else
+        redirect to '/login'
+      end
     end
 
+
     #EDIT
-    #Will need to add security here
     patch '/item/:id' do
-      @item = Item.find_by_name(params[:name])
-      item.name = params[:item][:name]
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+        if @item && @item.user == current_user
 
-      if item.categories
-        item.categories.clear
-      end
+        item.name = params[:item][:name]
 
-      categories = params[:item][:categories]
+        if item.categories
+          item.categories.clear
+        end
+
+        categories = params[:item][:categories]
       
-      categories.each do |category|
-        item.categories << Category.find(category)
-      end
+        categories.each do |category|
+          item.categories << Category.find(category)
+        end
 
         @item.save
         redirect '/show_listing/#{@item.id}'
@@ -87,39 +105,38 @@ class ItemsController < ApplicationController
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     get '/my_listings' do
       if logged_in?
-        #@items = User.Items.all
-        @categories = Category.all
-      erb :'my_listings'
-    else
-      redirect to '/'
+        @items = User.items.all
+        erb :'my_listings'
+      else
+        redirect to '/login'
+      end
     end
-  end
 
-  get '/items/:id' do
-    if logged_in?
-      @category = Category.find_by_name(params[:name])
-      erb :'/my_listings'
-    else
-      redirect to '/'
+    
+    get '/items_by_category' do
+      if logged_in?
+        @category = Category.items.all
+        erb :'/items_by_category'
+      else
+        redirect to '/'
+      end
     end
-  end
 
 
-
-    #need delete_listing
+    #DELETE
+    delete '/item/:id/delete' do
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+        if @item && @item.user == current_user
+          @item.delete
+        end
+        redirect to '/listings'
+      else
+        redirect to '/login'
+      end
+    end
     
 end
 
