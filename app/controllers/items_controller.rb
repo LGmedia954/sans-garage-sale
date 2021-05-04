@@ -45,7 +45,9 @@ class ItemsController < ApplicationController
 
 
     def all_listings
-      #I want a nested hash to pull params details for each Item Listing and also pull User params contact info with it.
+      #I want to pull params details for each Item Listing with User params contact info with it.
+      #I keep finding only Ruby on Rails examples of this.
+
       #Trying to follow this code example from StackOverflow below:
       #@venue = Venue.includes({:orders => [:customer, :items]}).find_by_handle(params[:venue])
 
@@ -79,13 +81,16 @@ class ItemsController < ApplicationController
     end
 
 
+   #PATCH
+    
 
 
 
-    get '/my_listings' do
+
+    get '/my_listings/' do
       if logged_in?
-        @items = Item.where(:user_id => current_user.id)
-        erb :'my_listings'
+        @items = Item.all.where(:user_id => current_user.id)
+        erb :'/my_listings'
       else
         redirect to '/login'
       end
