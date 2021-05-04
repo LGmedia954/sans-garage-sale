@@ -5,7 +5,7 @@
     <br><br>
     <a href="/categories">All Categories</a>
     <br><br>
-    <a href="">My Listings</a>
+    <a href="/my_listings">My Listings</a>
     <br><br>
     <a href="/logout">Log Out</a>
     <br><br>
@@ -31,7 +31,7 @@
 
 <br>
   <form method="POST" action="/items">
-	<label for="name">Name: <input type="text" name="item[name]" id="Name" placeholder="Your name"></label>
+	<label for="name">Name: <input type="text" name="item[name]" id="Name" placeholder="Item name"></label>
     <br><br>
     <label for="quantity">Quantity: <input type="text" name="item[quantity]" id="Quantity" placeholder="Enter a number"></label>
     <br><br>
@@ -39,12 +39,11 @@
     <br><br>
 	  <label for="price">Price: <input type="password" name="item[price]" placeholder="Enter 0 for free"></label>
     <br><br>
-
-    <h5><label>Please Select a Category:</label></h5>
+    <br>
+    <label><b>Please Select a Category:</b></label>
     <br><br>
     <% @categories.each do |category| %>
-      <input type="checkbox" id="<%= category.name %>" name="item[categories][]" value="<%= category.id %>" <%='checked' if @item.categories.include?(category) %>>
-    <%= category.name %>
+      <input id="<%= category.name %>" type="checkbox" name="item[categories][]" value="<%= category.id %>"><%= category.name %><br>
     <br>
   <% end %>
     <br><br>

@@ -29,25 +29,22 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          @item = current_user.items.build(params)
+          @item = current_user.items.create(:name => params[:name], :quantity => params[:quantity], :condition => params[:condition], :price => params[:price])
 
           category_list = params[:item][:categories]
           category_list.each do |category|
-          @item.categories << Category.find(category)
-        end
-          if @item.save
-            redirect '/show_listing/#{@item.id}'
-          else
-            redirect to "/item/new"
+            @item.categories << Category.find(category)
           end
+
+          @item.save
+          redirect to '/show_listing'
         end
-      else
-        redirect to '/login'
       end
-    end
+
+     end
 
 
-    def all_info
+    def all_listings
       #I want a nested hash to pull params details for each Item Listing and also pull User params contact info with it.
       #Trying to follow this sample below:
       #@venue = Venue.includes({:orders => [:customer, :items]}).find_by_handle(params[:venue])
@@ -57,7 +54,7 @@ class ItemsController < ApplicationController
     end
 
     #READ
-    get '/item/:id' do
+    get '/show_listing' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
         erb :'/show_listing'
@@ -66,6 +63,8 @@ class ItemsController < ApplicationController
       end
     end
 
+    
+    #EDIT
     get '/item/:id/edit' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
@@ -80,28 +79,6 @@ class ItemsController < ApplicationController
     end
 
 
-    #EDIT
-    patch '/item/:id' do
-      if logged_in?
-        @item = Item.find_by_id(params[:id])
-        if @item && @item.user == current_user
-
-        item.name = params[:item][:name]
-
-        if item.categories
-          item.categories.clear
-        end
-
-        categories = params[:item][:categories]
-      
-        categories.each do |category|
-          item.categories << Category.find(category)
-        end
-
-        @item.save
-        redirect '/show_listing/#{@item.id}'
-
-    end
 
 
 
@@ -131,12 +108,13 @@ class ItemsController < ApplicationController
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
           @item.delete
+        else
+          redirect to '/listings'
         end
-        redirect to '/listings'
       else
         redirect to '/login'
       end
     end
-    
-end
 
+    
+  end
