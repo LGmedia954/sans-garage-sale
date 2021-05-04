@@ -37,7 +37,7 @@ class ItemsController < ApplicationController
           end
 
           @item.save
-          redirect to '/show_listing'
+          redirect to '/items/#{@item.id}'
         end
       end
 
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
 
     def all_listings
       #I want a nested hash to pull params details for each Item Listing and also pull User params contact info with it.
-      #Trying to follow this sample below:
+      #Trying to follow this code example from StackOverflow below:
       #@venue = Venue.includes({:orders => [:customer, :items]}).find_by_handle(params[:venue])
 
       #My code below... still working with it.
@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
     end
 
     #READ
-    get '/show_listing' do
+    get '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
         erb :'/show_listing'
@@ -84,7 +84,7 @@ class ItemsController < ApplicationController
 
     get '/my_listings' do
       if logged_in?
-        @items = User.items.all
+        @items = Item.where(:user_id => current_user.id)
         erb :'my_listings'
       else
         redirect to '/login'

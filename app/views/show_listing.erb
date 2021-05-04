@@ -1,4 +1,4 @@
-<h2>View Your Listing, <%= @user.name %></h2>
+<h2>View Your Listing, <%= current_user.name %></h2>
 
   <div class="sidebar">
     <a href="/listings">All Listings</a>
@@ -10,11 +10,11 @@
     <a href="/logout">Log Out</a>
   </div>
 
-  <h3><%= @user.item.name %></h3>
+  <h3><%= @item.name %></h3>
    <div>
-    <%= @user.item.quantity %>
-    <%= @user.item.condition %>
-    <%= @user.item.price %>
+    <%= @item.quantity %>
+    <%= @item.condition %>
+    <%= @item.price %>
   </div>
 
   <br><br>
@@ -22,7 +22,7 @@
   <h3><a href="/item/:id/edit">Edit Listing</a></h3>
   <br><br>
   <br><br>
-  <form method="POST" action="/items/<%= @item.id %>/delete">
+  <form method="POST" action="/items/<%= @item.id %>">
   <input type="hidden" id="hidden" name="_method" value="DELETE" />
   <input type="submit" value="Delete Listing"/>
   </form>
