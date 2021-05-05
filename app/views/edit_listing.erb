@@ -44,14 +44,12 @@
     <h5><label>Categories:</label></h5>
     <br><br>
     <% Category.all.each do |category| %>
-      <input type="checkbox" id="<%= category.name %>" name="item[categories][]" value="<%= category.id %>" <%='checked' if @item.categories.include?(category) %>>
-    <%= category.name %>
-    
-    <br>
+      <label><%= category.name %></label>
+    <input type="checkbox" name="categories[]" value="<%= category.id %>" id="<%= category.name %>" <%='checked' if @item.categories.include?(category) %>>
   <% end %>
 
     <br><br>
-	  <input type="submit" value="Update">
+	  <input type="submit" value="Save">
   </form>
   <br><br>
   <br><br>

@@ -3,7 +3,7 @@
   <div class="sidebar">
     <a href="/categories">All Categories</a>
     <br><br>
-    <a href="/item/new">Add Listing</a>
+    <a href="/items/new">Add Listing</a>
     <br><br>
     <a href="/my_listings">My Listings</a>
     <br><br>
@@ -26,13 +26,22 @@
   <nav>
     <% if logged_in? %>
 
-      <h3>Welcome, <%= current_user.name %></h3>
-    
-    <% else %>
-  
-      <p>Please <a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to continue.</p>
+      <h3>Welcome, <%= current_user.name %>!</h3>
+      
+      <br><br>
 
-    <%end %>
+      <% @items.all.each do |item| %>
+        <div>
+          <b><%= item.name %>(<%= item.quantity %>) ~ <%= item.condition %> condition. $<%= item.price %></b><br>
+          Call <%= item.user.name %> at <%= item.user.phone %>, or email: <%= item.user.email %><br><br>
+        </div>
+     <% end %>
+    
+      <% else %>
+  
+        <p>Please <a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to continue.</p>
+
+      <%end %>
     
   </nav>
 
