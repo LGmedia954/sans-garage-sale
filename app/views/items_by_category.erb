@@ -11,3 +11,9 @@
     <br><br>
   </div>
 
+  <% @category.items.each do |item| %>
+  <div>
+    <%= item.name %>(<%= item.quantity %>) ~ <%= item.condition %> condition. $<%= item.price %>
+  </div>
+<% end %>
+

@@ -81,14 +81,16 @@ class ItemsController < ApplicationController
     end
 
 
-   
 
 
 
 
+
+
+
+    #User can see their own listings.
     get '/my_listings' do
       if logged_in?
-        #@items = Item.all.where(:user_id => current_user.id)
         @items = Item.all.where(params[:user_id] == current_user.id)
         erb :'/my_listings'
       else
@@ -97,14 +99,7 @@ class ItemsController < ApplicationController
     end
 
     
-    get '/items_by_category' do
-      if logged_in?
-        @category = Category.items.all
-        erb :'/categories'
-      else
-        redirect to '/'
-      end
-    end
+  
 
 
     #DELETE
