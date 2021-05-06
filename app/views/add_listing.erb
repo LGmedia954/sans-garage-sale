@@ -37,14 +37,14 @@
     <br><br>
     <label for="condition">Condition: <input type="text" name="item[condition]" placeholder="New/Good/Fair/Repair"></label>
     <br><br>
-	  <label for="price">Price: <input type="password" name="item[price]" placeholder="Enter 0 for free"></label>
+	  <label for="price">Price: <input type="text" name="item[price]" placeholder="Enter 0 for free"></label>
     <br><br>
     <br>
     <label><b>Please Select a Category:</b></label>
     <br><br>
     <% @categories.each do |category| %>
       <input id="<%= category.name %>" type="checkbox" name="item[categories][]" value="<%= category.id %>"><%= category.name %><br>
-    <br>
+    
   <% end %>
     <br><br>
 	<input type="submit" value="Create">

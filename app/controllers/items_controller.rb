@@ -22,9 +22,15 @@ class ItemsController < ApplicationController
       end
     end
 
-       
-  
-      
+    get '/show_listing' do
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+        erb :'/show_listing'
+      else
+        redirect to '/login'
+      end
+    end
+
 
     #CREATE
     post '/items' do
@@ -33,24 +39,25 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          @item = current_user.items.build(name: params[:name], quantity: params[:quantity], condition: params[:condition], price: params[:price])
+          @item = current_user.items.create(name: params[:name], quantity: params[:quantity], condition: params[:condition], price: params[:price])
 
           #category_list = params[:item][:categories]
           #category_list.each do |category|
-            #@item.categories << Category.find(category)
+          #  @item.categories << Category.find(category)
           #end
 
-          @item.save
+          #@item.save
 
-          #flash[:message] = "Item added."
-          #redirect to '/items/#{@item.id}'
-          redirect to '/show_listing'
+          flash[:message] = "Item added."
+          redirect to '/items/#{@item.id}'
         end
       end
     end
 
+
    #READ
-   get '/items/:id' do
+   #get '/items/:id' do
+   get '/items/' do
     if logged_in?
       @item = Item.find_by_id(params[:id])
       erb :'/show_listing'
@@ -58,7 +65,6 @@ class ItemsController < ApplicationController
       redirect to '/login'
     end
   end
-
     
     #EDIT
     get '/items/:id/edit' do
@@ -80,7 +86,7 @@ class ItemsController < ApplicationController
 
 
 
-    get '/items/:user_id' do
+    get '/my_listings' do
       if logged_in?
         #@items = Item.all.where(:user_id => current_user.id)
         @items = Item.all.where(params[:user_id] == current_user.id)
