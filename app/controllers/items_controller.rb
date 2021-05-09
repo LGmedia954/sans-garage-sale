@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
       end
     end
 
+
     get '/show_listing' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
@@ -34,25 +35,28 @@ class ItemsController < ApplicationController
 
     #CREATE
     post '/items' do
-      if logged_in?
+      if !logged_in?
+        redirect to '/login'
+      else
         if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          @item = current_user.items.create(name: params[:name], quantity: params[:quantity], condition: params[:condition], price: params[:price])
+          @item = Item.create(name: params[:name], quantity: params[:quantity], condition: params[:condition], price: params[:price])
 
-          #category_list = params[:item][:categories]
-          #category_list.each do |category|
-          #  @item.categories << Category.find(category)
-          #end
-
-          #@item.save
+          category_list = params[:item][:categories]
+          category_list.each do |category|
+            @item.categories << Category.find(category)
+          end
+          
+          @item.save
 
           flash[:message] = "Item added."
           redirect to '/items/#{@item.id}'
         end
       end
     end
+
 
 
    #READ
