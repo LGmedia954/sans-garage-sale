@@ -4,6 +4,8 @@ require 'pry'
 
 class ItemsController < ApplicationController
 
+  use Rack::Flash
+
   get '/listings' do
     if logged_in?
       @items = Item.all
@@ -22,15 +24,14 @@ class ItemsController < ApplicationController
       end
     end
 
-
-    get '/show_listing' do
+    get '/items/:name' do
       if logged_in?
-        @item = Item.find_by_id(params[:id])
-        erb :'/show_listing'
-      else
-        redirect to '/login'
-      end
+      @item = Item.find_by_name(params[:name])
+      erb :'/show_listing'
+    else
+      redirect to '/login'
     end
+  end
 
 
     #CREATE
@@ -42,33 +43,35 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          @item = Item.create(name: params[:name], quantity: params[:quantity], condition: params[:condition], price: params[:price])
+          @item = Item.create(params[:item])
+          @item.category_ids = params[:categories]
 
-          category_list = params[:item][:categories]
-          category_list.each do |category|
-            @item.categories << Category.find(category)
-          end
+          #category_list = params[:item][:categories]
+          #category_list.each do |category|
+            #@item.categories << Category.find(category)
+          #end
           
           @item.save
 
           flash[:message] = "Item added."
-          redirect to '/items/#{@item.id}'
+          #redirect to '/items/#{@item.id}'
+          redirect to '/show_listing'
         end
       end
     end
 
 
-
-   #READ
-   #get '/items/:id' do
-   get '/items/' do
-    if logged_in?
-      @item = Item.find_by_id(params[:id])
-      erb :'/show_listing'
-    else
-      redirect to '/login'
+    #READ
+    get '/show_listing' do
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+        return @item
+        erb :'/show_listing'
+      else
+        redirect to '/login'
+      end
     end
-  end
+ 
     
     #EDIT
     get '/items/:id/edit' do
@@ -85,13 +88,6 @@ class ItemsController < ApplicationController
     end
 
 
-
-
-
-
-
-
-
     #User can see their own listings.
     get '/my_listings' do
       if logged_in?
@@ -102,8 +98,21 @@ class ItemsController < ApplicationController
       end
     end
 
-    
+
+    #PATCH
+    patch '/items/:id' do
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+      if @item && @item.user == current_user
+        @item.update(params[:item][:name][:quantity][:condition][:price])
+
+        @item.category_ids = params[:categories]
+        @item.save
   
+        flash[:message] = "Item updated."
+        redirect to '/items/#{@item.id}'
+      end
+    end
 
 
     #DELETE

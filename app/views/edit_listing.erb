@@ -47,7 +47,7 @@
       <label><%= category.name %></label>
     <input type="checkbox" name="categories[]" value="<%= category.id %>" id="<%= category.name %>" <%='checked' if @item.categories.include?(category) %>>
   <% end %>
-
+  
     <br><br>
 	  <input type="submit" value="Save">
   </form>
