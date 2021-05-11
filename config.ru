@@ -5,6 +5,7 @@ require './config/environment'
 #end
 
 use Rack::MethodOverride
+use Sinatra::ActiveRecordExtension
 #use URI::MailTo::EMAIL_REGEXP
 
 use UsersController
