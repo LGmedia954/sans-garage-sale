@@ -24,16 +24,6 @@ class ItemsController < ApplicationController
       end
     end
 
-    get '/items/:name' do
-      if logged_in?
-        @item = Item.find_by_name(params[:name])
-        erb :'/show_listing'
-      else
-        redirect to '/login'
-      end
-    end
-
-ActiveRecordExtension
     #CREATE
     post '/items' do
       if !logged_in?
@@ -63,9 +53,10 @@ ActiveRecordExtension
 
 
     #READ
-    get '/show_listing' do
+    get '/show_listing/:id' do
       if logged_in?
-        @item = Item.find_by_id(params[:id])
+        #@item = Item.find_by_id(params[:id])
+        @items = Item.last.where(params[:user_id] == current_user.id)
         erb :'/show_listing'
       else
         redirect to '/login'
@@ -99,12 +90,22 @@ ActiveRecordExtension
     end
 
 
+    get '/items/:name' do
+      if logged_in?
+        @item = Item.find_by_name(params[:name])
+        erb :'/show_listing/#{@item.name}'
+      else
+        redirect to '/login'
+      end
+    end
+
+
     #PATCH
     patch '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
-          @item.update(params[:item][:name][:quantity][:condition][:price])
+          @item.update(params[:item])
 
           @item.category_ids = params[:categories]
           @item.save

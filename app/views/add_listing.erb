@@ -43,7 +43,7 @@
     <label><b>Please Select a Category:</b></label>
     <br><br>
     <% @categories.each do |category| %>
-      <input id="<%= category.name %>" type="radio" name="[categories][]" value="<%= category.id %>"><%= category.name %><br>
+      <input id="<%= category.name %>" type="radio" name="category[category_ids][]" value="<%= category.id %>"> <%= category.name %><br>
     
   <% end %>
     <br><br>
