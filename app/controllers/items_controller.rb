@@ -26,14 +26,14 @@ class ItemsController < ApplicationController
 
     get '/items/:name' do
       if logged_in?
-      @item = Item.find_by_name(params[:name])
-      erb :'/show_listing'
-    else
-      redirect to '/login'
+        @item = Item.find_by_name(params[:name])
+        erb :'/show_listing'
+      else
+        redirect to '/login'
+      end
     end
-  end
 
-
+ActiveRecordExtension
     #CREATE
     post '/items' do
       if !logged_in?
@@ -43,8 +43,9 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          @item = Item.create(params[:item])
-          @item.category_ids = params[:categories]
+          @item = current_user.items.build(params[:item])
+          #@item = current_user.items.build(:name => params[:name], :quantity  => params[:quantity], :condition => params[:condition], :price => params[:price])
+          #@item.item_categories = params[:item_id][:category_id]
 
           #category_list = params[:item][:categories]
           #category_list.each do |category|
@@ -65,7 +66,6 @@ class ItemsController < ApplicationController
     get '/show_listing' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
-        return @item
         erb :'/show_listing'
       else
         redirect to '/login'
@@ -103,14 +103,20 @@ class ItemsController < ApplicationController
     patch '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
-      if @item && @item.user == current_user
-        @item.update(params[:item][:name][:quantity][:condition][:price])
+        if @item && @item.user == current_user
+          @item.update(params[:item][:name][:quantity][:condition][:price])
 
-        @item.category_ids = params[:categories]
-        @item.save
+          @item.category_ids = params[:categories]
+          @item.save
   
-        flash[:message] = "Item updated."
-        redirect to '/items/#{@item.id}'
+          flash[:message] = "Item updated."
+          redirect to '/items/#{@item.id}'
+        
+        else
+          redirect to '/listings'
+        end
+      else
+        redirect to '/login'
       end
     end
 

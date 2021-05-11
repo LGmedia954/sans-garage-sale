@@ -9,9 +9,5 @@ class Item < ActiveRecord::Base
     validates_presence_of :name, :quantity, :condition, :price
 
 
-    def self.find_by_id(id)
-      Item.all.find { |item| item.id == id }
-    end
-
   
 end
