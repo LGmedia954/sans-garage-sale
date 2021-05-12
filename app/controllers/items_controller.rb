@@ -35,8 +35,12 @@ class ItemsController < ApplicationController
         else
           @item = current_user.items.build(params[:item])
           #@item = current_user.items.build(:name => params[:name], :quantity  => params[:quantity], :condition => params[:condition], :price => params[:price])
+          
+          
           #@item.item_categories = params[:item_id][:category_id]
 
+
+          #Instead of this below, I decided to limit choices to 15 categories.
           #category_list = params[:item][:categories]
           #category_list.each do |category|
             #@item.categories << Category.find(category)

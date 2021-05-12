@@ -45,7 +45,7 @@
     <br><br>
     <% Category.all.each do |category| %>
       <label><%= category.name %></label>
-    <input type="checkbox" name="categories[]" value="<%= category.id %>" id="<%= category.name %>" <%='checked' if @item.categories.include?(category) %>>
+    <input type="radio" name="category[category_ids][]" value="<%= category.id %>" id="<%= category.name %>" <%='checked' if @item.categories.include?(category) %>>
   <% end %>
   
     <br><br>
