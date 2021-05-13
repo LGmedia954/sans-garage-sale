@@ -34,18 +34,7 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          #binding.pry
           @item = current_user.items.build(params[:item])
-          
-          #@itemcategory = params[:itemcategory][:category_id]
-          #params.dig(:itemcategories, :item_id, :category_id)   
-
-
-          #Instead of this below, I decided to limit choices to 15 categories.
-          #category_list = params[:item][:categories]
-          #category_list.each do |category|
-            #@item.categories << Category.find(category)
-          #end
           
           @item.save
 
@@ -56,10 +45,9 @@ class ItemsController < ApplicationController
     end
 
      #READ
-     get '/items/' do
+     get '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
-        #@items = Item.last.where(params[:user_id] == current_user.id)
         erb :'/show_listing'
       else
         redirect to '/login'
