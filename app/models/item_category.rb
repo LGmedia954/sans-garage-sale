@@ -6,5 +6,4 @@ class ItemCategory < ActiveRecord::Base
     belongs_to :category
 
     
-    
 end

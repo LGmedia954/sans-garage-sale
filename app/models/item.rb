@@ -3,7 +3,7 @@ require './config/environment'
 class Item < ActiveRecord::Base
 
     belongs_to :user
-    has_many :categories
+    belongs_to :category
     has_many :item_categories
     #has_many :categories, through: :item_categories
 
