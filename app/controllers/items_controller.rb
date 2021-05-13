@@ -19,10 +19,11 @@ class ItemsController < ApplicationController
       if logged_in?
         @categories = Category.all
         erb :'/add_listing'
-      else
+      else   
         redirect to '/login'
       end
     end
+    
 
     #CREATE
     post '/items' do
@@ -33,9 +34,10 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
+          #binding.pry
           @item = current_user.items.build(params[:item])
           
-          #@itemcategory = params[:itemcategory][:item_id][:category_id]
+          #@itemcategory = params[:itemcategory][:category_id]
           #params.dig(:itemcategories, :item_id, :category_id)   
 
 
@@ -48,23 +50,21 @@ class ItemsController < ApplicationController
           @item.save
 
           flash[:message] = "Item added."
-          redirect to '/items/#{@item.id}'
+          redirect to "/items/#{@item.id}"
         end
       end
     end
 
-
-    #READ
-    get '/items' do
+     #READ
+     get '/items/' do
       if logged_in?
-        #@item = Item.find_by_id(params[:id])
-        @items = Item.last.where(params[:user_id] == current_user.id)
+        @item = Item.find_by_id(params[:id])
+        #@items = Item.last.where(params[:user_id] == current_user.id)
         erb :'/show_listing'
       else
         redirect to '/login'
       end
     end
- 
     
     #EDIT
     get '/items/:id/edit' do
@@ -95,7 +95,7 @@ class ItemsController < ApplicationController
     get '/items/:name' do
       if logged_in?
         @item = Item.find_by_name(params[:name])
-        erb :'/show_listing/#{@item.name}'
+        erb :"/show_listing"
       else
         redirect to '/login'
       end
@@ -113,7 +113,7 @@ class ItemsController < ApplicationController
           @item.save
   
           flash[:message] = "Item updated."
-          redirect to '/items/#{@item.id}'
+          redirect to "/items/#{@item.id}"
         
         else
           redirect to '/listings'
