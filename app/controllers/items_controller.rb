@@ -34,10 +34,9 @@ class ItemsController < ApplicationController
           redirect to '/item/new'
         else
           @item = current_user.items.build(params[:item])
-          #@item = current_user.items.build(:name => params[:name], :quantity  => params[:quantity], :condition => params[:condition], :price => params[:price])
           
-          
-          #@item.item_categories = params[:item_id][:category_id]
+          #@itemcategory = params[:itemcategory][:item_id][:category_id]
+          #params.dig(:itemcategories, :item_id, :category_id)   
 
 
           #Instead of this below, I decided to limit choices to 15 categories.
@@ -49,15 +48,14 @@ class ItemsController < ApplicationController
           @item.save
 
           flash[:message] = "Item added."
-          #redirect to '/items/#{@item.id}'
-          redirect to '/show_listing'
+          redirect to '/items/#{@item.id}'
         end
       end
     end
 
 
     #READ
-    get '/show_listing/:id' do
+    get '/items' do
       if logged_in?
         #@item = Item.find_by_id(params[:id])
         @items = Item.last.where(params[:user_id] == current_user.id)
