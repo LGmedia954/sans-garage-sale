@@ -20,7 +20,6 @@ class Item < ActiveRecord::Base
             :quantity => @item_details[:quantity],
             :condition => @item_details[:condition],
             :price => @item_details[:price],
-            :user_id => @item_details[:user_id],
             :category_id => @item_details[:category_id],
         )
 
