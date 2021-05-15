@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
   use Rack::Flash
 
-  get '/listings' do
+  get '/listings' do  #Logged in Users can read everyone's listings.
     if logged_in?
       @items = Item.all
       erb :'/listings'
@@ -34,9 +34,23 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          @item = current_user.items.build(params[:item])
-          
-          @item.save
+          #@item = current_user.items.build(params[:item])
+           
+          #@item.save 
+
+          item_hashes = {
+            :item => params["item"]
+            :name => params["name"],
+            :quantity => params["quantity"],
+            :condition => params["condition"],
+            :price => params["price"]
+            :user_id => params["user_id"]
+            :category_id => params["category_id"]
+          }
+
+          item_details = params["item"]["name"]["quantity"]["condition"]["price"]["user_id"]["category_id"]
+
+          @item = Item.create_new_listing(item_hashes, item_details, session[:user_id])
 
           flash[:message] = "Item added."
           redirect to "/items/#{@item.id}"
@@ -44,10 +58,12 @@ class ItemsController < ApplicationController
       end
     end
 
+
      #READ
      get '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
+        Item.gather_details(listing_details, listing_category, session[:user_id])
         erb :'/show_listing'
       else
         redirect to '/login'
@@ -74,16 +90,6 @@ class ItemsController < ApplicationController
       if logged_in?
         @items = Item.all.where(params[:user_id] == current_user.id)
         erb :'/my_listings'
-      else
-        redirect to '/login'
-      end
-    end
-
-
-    get '/items/:name' do
-      if logged_in?
-        @item = Item.find_by_name(params[:name])
-        erb :"/show_listing"
       else
         redirect to '/login'
       end

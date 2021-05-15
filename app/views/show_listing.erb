@@ -10,28 +10,28 @@
     <a href="/logout">Log Out</a>
   </div>
 
-  <% if flash.has?(:message) %>
-    <%= flash[:message] %>
-  <% end %>
 
- <h3> <%= @item.name %> </h3>
-   <div>
-    <%= @item.quantity %>
-    <%= @item.condition %>
-    <%= @item.price %>
-  </div>
+   <% @user.items.each do |item| %>
+      <h3><a href="/items/<%= item.id %>"><%= item.name %></a></h3><br>
+      <%= item.quantity %><br>
+      <%= item.condition %><br>
+      <%= item.price %><br><br>
+   <% end %>
 
   <br><br>
   <br><br>
-  <% if @item.user_id == @user.id %>
 
+  
+  <% if logged_in? %>
   <h3><a href="/item/:id/edit">Edit Listing</a></h3>
   <br><br>
   <br><br>
+  <% if @item.user_id == @user.id %>
   <form method="POST" action="/items/<%= @item.id %>">
   <input type="hidden" id="hidden" name="_method" value="DELETE" />
   <input type="submit" value="Delete Listing"/>
   </form>
+  <% end %>
   <br><br>
   <br><br>
   <h3><a href="/item/new">Add a New Listing</a></h3>
