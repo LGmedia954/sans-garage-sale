@@ -39,13 +39,11 @@ class ItemsController < ApplicationController
           #@item.save 
 
           item_details = {
-            :item => params["item"],
             :name => params["name"],
             :quantity => params["quantity"],
             :condition => params["condition"],
             :price => params["price"],
-            :user_id => params["user_id"],
-            :category_id => params["category_id"]
+            :category_id => params["category_id"],
           }
 
           binding.pry
