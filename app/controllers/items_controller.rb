@@ -38,22 +38,23 @@ class ItemsController < ApplicationController
            
           #@item.save 
 
-          item_hashes = {
-            :item => params["item"]
+          item_details = {
+            :item => params["item"],
             :name => params["name"],
             :quantity => params["quantity"],
             :condition => params["condition"],
-            :price => params["price"]
-            :user_id => params["user_id"]
+            :price => params["price"],
+            :user_id => params["user_id"],
             :category_id => params["category_id"]
           }
 
-          item_details = params["item"]["name"]["quantity"]["condition"]["price"]["user_id"]["category_id"]
+          binding.pry
 
-          @item = Item.create_new_listing(item_hashes, item_details, session[:user_id])
+          @item = Item.create_new_listing(item_details, current_user)
 
           flash[:message] = "Item added."
           redirect to "/items/#{@item.id}"
+
         end
       end
     end
@@ -63,7 +64,6 @@ class ItemsController < ApplicationController
      get '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
-        Item.gather_details(listing_details, listing_category, session[:user_id])
         erb :'/show_listing'
       else
         redirect to '/login'
