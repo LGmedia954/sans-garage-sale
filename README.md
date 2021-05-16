@@ -1,8 +1,8 @@
 # sans-garage-sale
 
-Sans Garage Sale is a Model-View-Controller (MVC) application built with Ruby, Sinatra, and ActiveRecord, using styling of the Corneal gem.
+Sans Garage Sale is a Model-View-Controller (MVC) application built with Ruby, Sinatra, and ActiveRecord, using the updated Corneal gem.
 
-People who live in urban areas might not have a garage, and some shared communities that do offer garage space do not permit residents to hold the "garage sales" that we often see in suburbs and rural areas. This app provides a space where users can post household items they are looking to sell or give away.
+People who live in urban areas might not have a garage, and some shared communities that do offer garage space do not permit residents to hold the "garage sales" that we often see in suburbs and rural areas. This app provides a space where users can post items they are looking to sell or give away.
 
 To use this app, just clone, run rake db:migrate and then run shotgun.
 

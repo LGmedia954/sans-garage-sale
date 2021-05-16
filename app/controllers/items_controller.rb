@@ -43,8 +43,6 @@ class ItemsController < ApplicationController
             price: params["item"]["price"],
             category_id: params["item"]["category_id"])   
 
-          #binding.pry
-
           @item.save!
 
           flash[:message] = "Item added."
