@@ -1,4 +1,4 @@
-<h2>View Your Listing</h2>
+<h2><%= @item.name %></h2>
 
   <div class="sidebar">
     <a href="/listings">All Listings</a>
@@ -10,12 +10,12 @@
     <a href="/logout">Log Out</a>
   </div>
 
-
-   
-      <h3><%= @item.id %>. <%= @item.name %></h3><br>
-      <%= @item.quantity %><br>
-      <%= @item.condition %><br>
-      <%= @item.price %><br><br>
+  <br>
+  
+      <b>Count: <%= @item.quantity %><br><br>
+      Condition: <%= @item.condition %><br><br>
+      Price: $<%= @item.price %> USD<br><br>
+      Listing Id# <%= @item.id %></h5><br></b>
 
 
   <br><br>
@@ -23,18 +23,18 @@
 
   
   <% if logged_in? %>
-  <h3><a href="/item/:id/edit">Edit Listing</a></h3>
+  <h4>Would you like to <a href="/item/:id/edit">edit this item</a> <%= @current_user.name %>?</h4>
   <br><br>
   <br><br>
-  <% if @item.user_id == @user.id %>
-    <form method="POST" action="/items/<%= @item.id %>/delete">
-      <input type="hidden" id="hidden" name="_method" value="DELETE" />
-      <input type="submit" value="Delete Item"/>
-    </form>
-  <% end %>
+    
+      <form method="POST" action="/items/<%= @item.id %>/delete">
+        <input type="hidden" id="hidden" name="_method" value="DELETE" />
+        <input type="submit" value="Delete Item"/>
+      </form>
+    
   <br><br>
   <br><br>
-  <h3><a href="/item/new">Add a New Listing</a></h3>
+  <h4><a href="/item/new">Add a New Listing</a></h4>
   <% end %>
   <br><br>
  
