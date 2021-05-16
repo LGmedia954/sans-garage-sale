@@ -1,4 +1,4 @@
-<h2>All Listings</h2>
+<h2>Welcome, <%= current_user.name %>!</h2>
 
   <div class="sidebar">
     <a href="/categories">All Categories</a>
@@ -26,12 +26,13 @@
   <nav>
     <% if logged_in? %>
 
-      <h3>Welcome, <%= current_user.name %>!</h3>
+      <h3>ALL LISTINGS</h3>
       
-      <br><br>
+      <br>
 
       <% @items.all.each do |item| %>
         <div>
+          <h6>Item Id# <%= item.id %></h6>
           <b><%= item.name %>(<%= item.quantity %>) ~ <%= item.condition %> condition. $<%= item.price %></b><br>
           Call <%= item.user.name %> at <%= item.user.phone %>, or email: <%= item.user.email %><br><br>
         </div>

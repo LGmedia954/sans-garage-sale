@@ -26,15 +26,16 @@
   <h4>Would you like to <a href="/item/:id/edit">edit this item</a> <%= @current_user.name %>?</h4>
   <br><br>
   <br><br>
-    
+    <% if @current_user %>
       <form method="POST" action="/items/<%= @item.id %>/delete">
         <input type="hidden" id="hidden" name="_method" value="DELETE" />
         <input type="submit" value="Delete Item"/>
       </form>
+    <% end %>
     
   <br><br>
   <br><br>
-  <h4><a href="/item/new">Add a New Listing</a></h4>
+  <h4><a href="/items/new">Add a New Listing</a></h4>
   <% end %>
   <br><br>
  

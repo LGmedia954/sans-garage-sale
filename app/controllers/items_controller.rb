@@ -62,9 +62,10 @@ class ItemsController < ApplicationController
         redirect to '/login'
       end
     end
+
     
     #EDIT
-    get '/items/:id/edit' do
+    get '/item/:id/edit' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
@@ -83,16 +84,6 @@ class ItemsController < ApplicationController
       if logged_in?
         @items = Item.all.where(params[:user_id] == current_user.id)
         erb :'/my_listings'
-      else
-        redirect to '/login'
-      end
-    end
-
-
-    get '/items/:name' do  #Would like to add this search.
-      if logged_in?
-        @item = Item.find_by_name(params[:name])
-        erb :"/show_listing"
       else
         redirect to '/login'
       end
