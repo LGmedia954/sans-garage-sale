@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     
 
     #CREATE
-    post '/items/' do
+    post '/items' do
       if !logged_in?
         redirect to '/login'
       else
@@ -34,21 +34,18 @@ class ItemsController < ApplicationController
           flash[:input_error] = "All fields are required. Enter 0 for free items."
           redirect to '/item/new'
         else
-          #@item = current_user.items.build(params[:item])
-           
-          #@item.save 
 
-          item_details = {
-            :name => @params["name"],
-            :quantity => @params["quantity"],
-            :condition => @params["condition"],
-            :price => @params["price"],
-            :category_id => @params["category_id"]
-          }
+          user = current_user
+
+          @item = user.items.build(name: params["item"]["name"].capitalize,
+            quantity: params["item"]["quantity"],
+            condition: params["item"]["condition"],
+            price: params["item"]["price"],
+            category_id: params["item"]["category_id"])   
 
           binding.pry
 
-          @item = Item.create_new_listing(item_details, current_user)
+          @item.save!
 
           flash[:message] = "Item added."
           redirect to "/items/#{@item.id}"
