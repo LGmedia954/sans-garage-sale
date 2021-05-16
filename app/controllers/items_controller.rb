@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     
 
     #CREATE
-    post '/items' do
+    post '/items/' do
       if !logged_in?
         redirect to '/login'
       else
@@ -39,11 +39,11 @@ class ItemsController < ApplicationController
           #@item.save 
 
           item_details = {
-            :name => params["name"],
-            :quantity => params["quantity"],
-            :condition => params["condition"],
-            :price => params["price"],
-            :category_id => params["category_id"],
+            :name => @params["name"],
+            :quantity => @params["quantity"],
+            :condition => @params["condition"],
+            :price => @params["price"],
+            :category_id => @params["category_id"]
           }
 
           binding.pry
