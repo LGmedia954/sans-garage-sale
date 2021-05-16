@@ -11,7 +11,7 @@
   </div>
 
 
-   <% @user.items.each do |item| %>
+   <% user.items.each do |item| %>
       <h3><a href="/items/<%= item.id %>"><%= item.name %></a></h3><br>
       <%= item.quantity %><br>
       <%= item.condition %><br>

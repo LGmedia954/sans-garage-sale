@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
             price: params["item"]["price"],
             category_id: params["item"]["category_id"])   
 
-          binding.pry
+          #binding.pry
 
           @item.save!
 
@@ -85,6 +85,16 @@ class ItemsController < ApplicationController
       if logged_in?
         @items = Item.all.where(params[:user_id] == current_user.id)
         erb :'/my_listings'
+      else
+        redirect to '/login'
+      end
+    end
+
+
+    get '/items/:name' do  #Would like to add this search.
+      if logged_in?
+        @item = Item.find_by_name(params[:name])
+        erb :"/show_listing"
       else
         redirect to '/login'
       end
