@@ -23,40 +23,33 @@
        </dl></h6>
     </div>
 
-  
 
-  <% if flash.has?(:input_error) %>
+	 <% if flash.has?(:input_error) %>
     <%= flash[:input_error] %>
   <% end %>
 
 <br>
   <form method="POST" action="/items">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
-	  <label for="name">Name: <input type="text" name="item[name]" id="Name" placeholder="Your name"></label>
+	  <label for="name">Name: <input type="text" size="35" name="item[name]" id="name" placeholder="Item name"></label>
     <br><br>
-    <label for="quantity">Quantity: <input type="text" name="item[quantity]" id="Quantity" placeholder="Enter a number"></label>
+    <label for="quantity">Quantity: <input type="text" name="item[quantity]" id="quantity" placeholder="Enter a number"></label>
     <br><br>
-    <label for="condition">Condition: <input type="text" name="item[condition]" placeholder="New/Good/Fair/Repair"></label>
+    <label for="condition">Condition: <input type="text" name="item[condition]" id="condition" placeholder="New/Good/Fair/Repair"></label>
     <br><br>
-	  <label for="price">Price: <input type="password" name="item[price]" placeholder="Enter 0 for free"></label>
+	  <label for="price">Price: $<input type="text" name="item[price]" id="price" placeholder="Enter 0 if free"></label>
     <br><br>
-
-    <h5><label>Categories:</label></h5>
+    <br>
+    <label><b>Category:</b></label>
     <br><br>
-    <% Category.all.each do |category| %>
-      <label><%= category.name %></label>
-    <input type="radio" name="category[category_ids][]" value="<%= category.id %>" id="<%= category.name %>" <%='checked' if @item.categories.include?(category) %>>
-  <% end %>
   
+    <% Category.all.each do |category| %>
+      <input type="radio" name="item[category_id]" id="<%= category.id %>" value="<%= category.id %>" required> <%= category.name %><br>
+    <% end %>
+
     <br><br>
-	  <input type="submit" value="Save">
+	<input type="submit" value="Update">
   </form>
-  <br><br>
-  <br><br>
-  <form method="POST" action="/items/<%= @item.id %>/delete">
-    <input type="hidden" id="hidden" name="_method" value="DELETE" />
-    <input type="submit" value="Delete Listing"/>
-  </form>
-  <br><br>
+<br>
 
 

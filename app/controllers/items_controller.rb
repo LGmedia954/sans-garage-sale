@@ -69,6 +69,7 @@ class ItemsController < ApplicationController
       if !logged_in?
         redirect to '/login'
       else
+        user = current_user
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
           erb :'/edit_listing'
@@ -77,6 +78,7 @@ class ItemsController < ApplicationController
         end
       end
     end
+
 
 
     #User can see their own listings.
