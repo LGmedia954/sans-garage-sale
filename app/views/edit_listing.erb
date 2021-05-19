@@ -25,8 +25,12 @@
 
 
 	 <% if flash.has?(:input_error) %>
-    <%= flash[:input_error] %>
-  <% end %>
+     <%= flash[:input_error] %>
+   <% end %>
+
+   <% if flash.has?(:access_denied) %>
+     <%= flash[:access_denied] %>
+   <% end %>
 
 <br>
   <form method="POST" action="/items">

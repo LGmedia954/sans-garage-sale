@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
   
     get '/items/new' do
       if logged_in?
+        @user = current_user
         @categories = Category.all
         erb :'/add_listing'
       else   
@@ -66,20 +67,27 @@ class ItemsController < ApplicationController
     
     #EDIT
     get '/items/:id/edit' do
+      @item = Item.find_by_id(params[:id])
       if !logged_in?
         redirect to '/login'
-      else
-        user = current_user
-        @item = Item.find_by_id(params[:id])
-        if @item && @item.user == current_user
+      end
+      @user = current_user
+        if @user == @item.user
           erb :'/edit_listing'
         else
-          redirect to '/listings'
+          flash[:access_denied] = "You can only edit your own listings."
+          redirect to "/items/#{@item.id}"
         end
-      end
-    end
+     end
 
 
+
+
+
+
+
+
+     
 
     #User can see their own listings.
     get '/my_listings' do
