@@ -64,6 +64,17 @@ class ItemsController < ApplicationController
       end
     end
 
+
+     #User can see their own listings.
+     get '/my_listings' do
+      if logged_in?
+        @items = Item.all.where(params[:user_id] == current_user.id)
+        erb :'/my_listings'
+      else
+        redirect to '/login'
+      end
+    end
+
     
     #EDIT
     get '/items/:id/edit' do
@@ -75,29 +86,10 @@ class ItemsController < ApplicationController
         if @user == @item.user
           erb :'/edit_listing'
         else
-          flash[:access_denied] = "You can only edit your own listings."
+          flash[:message] = "You can only edit your own listings."
           redirect to "/items/#{@item.id}"
         end
      end
-
-
-
-
-
-
-
-
-     
-
-    #User can see their own listings.
-    get '/my_listings' do
-      if logged_in?
-        @items = Item.all.where(params[:user_id] == current_user.id)
-        erb :'/my_listings'
-      else
-        redirect to '/login'
-      end
-    end
 
 
     #PATCH
@@ -105,11 +97,16 @@ class ItemsController < ApplicationController
       if logged_in?
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
-          @item.update(params[:item])
 
-          @item.category_ids = params[:categories]
-          @item.save
+          @item.category_id.clear
+
+          @item.update(name: params["item"]["name"].capitalize,
+            quantity: params["item"]["quantity"],
+            condition: params["item"]["condition"],
+            price: params["item"]["price"],
+            category_id: params["item"]["category_id"])
   
+          @item.save!
           flash[:message] = "Item updated."
           redirect to "/items/#{@item.id}"
         
@@ -120,6 +117,9 @@ class ItemsController < ApplicationController
         redirect to '/login'
       end
     end
+
+
+    #user = current_user
 
 
     #DELETE

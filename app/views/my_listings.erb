@@ -14,7 +14,7 @@
 
 <% @current_user.items.each do |item| %>
   <div>
-    <a href="/items/:id/edit"><h6>Item Id# <%= item.id %></h6></a>
+    <a href="/items/<%= item.id %>/edit"><h6>Item Id# <%= item.id %></h6></a>
     <b><%= item.name %></b> (<%= item.quantity %>) ~ <%= item.condition %> condition. $<%= item.price %> USD.
     <br><br>
   </div>
