@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
   use Rack::Flash
 
-  get '/listings' do  #Logged in Users can read everyone's listings.
+  get '/listings' do  #Logged in Users can view everyone's listings.
     if logged_in?
       @items = Item.all
       erb :'/listings'
@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
     end
 
 
-     #User can see their own listings.
+     #User can view their own listings.
      get '/my_listings' do
       if logged_in?
         @items = Item.all.where(params[:user_id] == current_user.id)
@@ -94,32 +94,30 @@ class ItemsController < ApplicationController
 
     #PATCH
     patch '/items/:id' do
-      @item = Item.find_by_id(params[:id])
-      if !logged_in?
-        redirect to '/login'
-      else
-        if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
-          flash[:input_error] = "All fields are required. Enter 0 for free items."
-          redirect to '/items/:id'
-        else
+      if logged_in?
+        @item = Item.find_by_id(params[:id])
+          
+        if @item && @item.user == current_user
 
-          user = current_user
+          if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
+            flash[:input_error] = "All fields are required. Enter 0 for free items."
+            redirect to "/items/#{params[:id]}/edit"
+          else
 
-          @item.category_id.clear
+            @item.update(name: params["item"]["name"].capitalize,
+              quantity: params["item"]["quantity"],
+              condition: params["item"]["condition"],
+              price: params["item"]["price"],
+              category_id: params["item"]["category_id"])
 
-          @item = user.items.update(name: params["item"]["name"].capitalize,
-            quantity: params["item"]["quantity"],
-            condition: params["item"]["condition"],
-            price: params["item"]["price"],
-            category_id: params["item"]["category_id"])   
+            @item.save!
 
-          @item.save!
+            flash[:message] = "Item updated."
+            redirect to "/items/#{@item.id}"
 
-          flash[:message] = "Item updated."
-          redirect to "/items/#{@item.id}"
-
+          end  
         end
-      end
+      end   
     end
 
 
@@ -131,7 +129,7 @@ class ItemsController < ApplicationController
           @item.delete
           redirect to '/my_listings'
         else
-          flash[:message] = "You can only delete your own listings."
+          flash[:message] = "You can only delete your own listings!"
           redirect to "/items/#{@item.id}"
         end
       else
