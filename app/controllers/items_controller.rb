@@ -94,33 +94,33 @@ class ItemsController < ApplicationController
 
     #PATCH
     patch '/items/:id' do
-      if logged_in?
-        @item = Item.find_by_id(params[:id])
-        if @item && @item.user == current_user
+      @item = Item.find_by_id(params[:id])
+      if !logged_in?
+        redirect to '/login'
+      else
+        if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
+          flash[:input_error] = "All fields are required. Enter 0 for free items."
+          redirect to '/items/:id'
+        else
+
+          user = current_user
 
           @item.category_id.clear
 
-          @item.update(name: params["item"]["name"].capitalize,
+          @item = user.items.update(name: params["item"]["name"].capitalize,
             quantity: params["item"]["quantity"],
             condition: params["item"]["condition"],
             price: params["item"]["price"],
-            category_id: params["item"]["category_id"])
-  
+            category_id: params["item"]["category_id"])   
+
           @item.save!
+
           flash[:message] = "Item updated."
-          binding.pry
           redirect to "/items/#{@item.id}"
-        
-        else
-          redirect to '/listings'
+
         end
-      else
-        redirect to '/login'
       end
     end
-
-
-    #user = current_user
 
 
     #DELETE
