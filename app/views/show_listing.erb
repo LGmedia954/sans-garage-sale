@@ -23,7 +23,9 @@
 
   
   <% if logged_in? %>
-  <h4>Would you like to <a href="/items/:id/edit">edit this item</a> <%= @current_user.name %>?</h4>
+  <h4>Would you like to <a href="/items/<%= @item.id %>/edit">edit this item</a> <%= @current_user.name %>?</h4>
+  <br><br>
+  <h4><a href="/items/new">Add a New Listing</a></h4> 
   <br><br>
   <br><br>
     <% if @current_user %>
@@ -32,11 +34,7 @@
         <input type="submit" value="Delete Item"/>
       </form>
     <% end %>
-    
-  <br><br>
-  <br><br>
-  <h4><a href="/items/new">Add a New Listing</a></h4>
+
   <% end %>
-  <br><br>
  
 

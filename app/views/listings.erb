@@ -33,7 +33,7 @@
       <% @items.all.each do |item| %>
         <div>
           <h6>Item Id# <%= item.id %></h6>
-          <b><%= item.name %>(<%= item.quantity %>) ~ <%= item.condition %> condition. $<%= item.price %></b><br>
+          <b><%= item.name %> (<%= item.quantity %>) ~ <%= item.condition %> condition. $<%= item.price %></b><br>
           Call <%= item.user.name %> at <%= item.user.phone %>, or email: <%= item.user.email %><br><br>
         </div>
      <% end %>

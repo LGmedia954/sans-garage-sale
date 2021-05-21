@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
           @item.save!
 
           flash[:message] = "Item added."
-          redirect to "/items/#{@item.id}"
+          redirect to "/items/#{@item.id}"  #This redirect is not working at the moment?
 
         end
       end
@@ -93,7 +93,8 @@ class ItemsController < ApplicationController
 
 
     #PATCH
-    patch '/items/:id' do
+    patch '/items' do
+    #patch '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user

@@ -32,7 +32,7 @@
      <%= flash[:message] %>
    <% end %>
 
-<br>
+  <br><br>
   <form method="POST" action="/items">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
 	  <label for="name">Name: <input type="text" size="35" name="item[name]" id="name" placeholder="Item name"></label>
@@ -54,6 +54,15 @@
     <br><br>
 	<input type="submit" value="Update">
   </form>
-<br>
+  <br><br>
+  <br><br>
+  <br><br>
+  
+    <% if @current_user %>
+      <form method="POST" action="/items/<%= @item.id %>/delete">
+        <input type="hidden" id="hidden" name="_method" value="DELETE" />
+        <input type="submit" value="Delete Item"/>
+      </form>
+    <% end %>
 
 
