@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
           @item.save!
 
           flash[:message] = "Item added."
-          redirect to "/items/#{@item.id}"  #This redirect is not working at the moment?
+          redirect to "/items/#{@item.id}"
 
         end
       end
@@ -93,8 +93,7 @@ class ItemsController < ApplicationController
 
 
     #PATCH
-    patch '/items' do
-    #patch '/items/:id' do
+    patch '/items/:id' do
       if logged_in?
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
@@ -109,6 +108,7 @@ class ItemsController < ApplicationController
   
           @item.save!
           flash[:message] = "Item updated."
+          binding.pry
           redirect to "/items/#{@item.id}"
         
         else
@@ -129,9 +129,10 @@ class ItemsController < ApplicationController
         @item = Item.find_by_id(params[:id])
         if @item && @item.user == current_user
           @item.delete
-          redirect to '/listings'
+          redirect to '/my_listings'
         else
-          redirect to '/listings'
+          flash[:message] = "You can only delete your own listings."
+          redirect to "/items/#{@item.id}"
         end
       else
         redirect to '/login'
