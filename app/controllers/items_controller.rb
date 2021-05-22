@@ -32,8 +32,9 @@ class ItemsController < ApplicationController
         redirect to '/login'
       else
         if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
-          flash[:input_error] = "All fields are required. Enter 0 for free items."
+          flash[:input_error] = "All fields are required."
           redirect to '/item/new'
+          #erb :"/add_listing", locals: {message: "All fields are required. Please try again."}
         else
 
           user = current_user
@@ -100,7 +101,7 @@ class ItemsController < ApplicationController
         if @item && @item.user == current_user
 
           if params[:name] == "" || params[:quantity] == "" || params[:condition] == "" || params[:price] == ""
-            flash[:input_error] = "All fields are required. Enter 0 for free items."
+            flash[:input_error] = "All fields are required."
             redirect to "/items/#{params[:id]}/edit"
           else
 
