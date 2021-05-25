@@ -39,7 +39,7 @@ class UsersController < ApplicationController
         redirect to '/listings'
       else
         flash[:login_error] = "Password incorrect. Please try again."
-        redirect to '/signup'
+        redirect to '/login'
       end
     end
 
