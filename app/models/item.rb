@@ -7,7 +7,7 @@ class Item < ActiveRecord::Base
     has_many :item_categories
     has_many :categories, through: :item_categories
 
-    validates_presence_of :name, :quantity, :condition, :price, message: "fields cannot be blank."
+    validates_presence_of :name, :quantity, :condition, :price, :category_id, message: "fields cannot be blank."
 
 
   
