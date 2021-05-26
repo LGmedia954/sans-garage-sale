@@ -39,6 +39,8 @@ class ItemsController < ApplicationController
 
           user = current_user
 
+          #@item = current_user.items.build(params[:item])
+
           @item = user.items.build(name: params["item"]["name"].capitalize,
             quantity: params["item"]["quantity"],
             condition: params["item"]["condition"],
